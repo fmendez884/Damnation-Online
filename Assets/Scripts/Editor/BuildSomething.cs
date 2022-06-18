@@ -25,7 +25,7 @@ public class BuildScript
     public static void BuildWindowsServer()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/Scenes/Main.unity" };
+        buildPlayerOptions.scenes = new[] { "Assets/StarterAssets/ThirdPersonController/Scenes/Playground.unity" };
         buildPlayerOptions.locationPathName = "Builds/Windows/Server/Server.exe";
         buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
         buildPlayerOptions.options = BuildOptions.CompressWithLz4HC | BuildOptions.EnableHeadlessMode;
@@ -39,7 +39,7 @@ public class BuildScript
     public static void BuildLinuxServer()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/Scenes/SampleScene.unity" };
+        buildPlayerOptions.scenes = new[] { "Assets/StarterAssets/ThirdPersonController/Scenes/Playground.unity" };
         buildPlayerOptions.locationPathName = "Builds/Linux/Server/Server.x86_64";
         buildPlayerOptions.target = BuildTarget.StandaloneLinux64;
         buildPlayerOptions.options = BuildOptions.CompressWithLz4HC | BuildOptions.EnableHeadlessMode;
