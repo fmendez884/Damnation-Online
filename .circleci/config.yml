@@ -19,7 +19,7 @@ workflows:
           project-path: "src"
           build-target: StandaloneLinux64
           compress: true
-          context: unity-orb
+          
       - unity/build:
           name: "build-webgl-2021"
           step-name: "Build WebGL"
@@ -34,4 +34,4 @@ workflows:
           compress: false
           requires:
             - build-linux64-2021
-          context: unity-orb
+          
