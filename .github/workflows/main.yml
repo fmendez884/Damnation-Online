@@ -1,15 +1,34 @@
 name: GameCI Template 🎮
 
-on: push
+on:
+  push:
+    branches:
+      - main
+      - staging
+  pull_request:
+    branches:
+      - main
+      - staging
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
-  buildWebGL:
-    name: Build for WebGL 🖥️
+  setup-and-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup
+      run: echo "Setup step goes here"
+
+    - name: Run Tests
+      run: echo "Test step goes here"
+
+  build:
+    needs: setup-and-tests
     runs-on: ubuntu-latest
     strategy:
+      matrix:
+        target: ['WebGL', 'Server']
       fail-fast: false
     steps:
       - name: Checkout code
@@ -35,16 +54,26 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-build-WebGL
+          key: Library-build-${{ matrix.target }}
           restore-keys: |
             Library-build-
             Library-
 
       - uses: game-ci/unity-builder@v2
         with:
-          targetPlatform: WebGL
+          targetPlatform: ${{ matrix.target == 'Server' && 'StandaloneLinux64' || 'WebGL' }}
+          buildName: ${{ matrix.target }}
+          customParameters: ${{ matrix.target == 'Server' && '-quit -batchmode -nographics -buildServer' || '' }}
 
       - uses: actions/upload-artifact@v2
         with:
-          name: build-WebGL
-          path: build/WebGL
+          name: build-${{ matrix.target }}
+          path: build/${{ matrix.target }}
+
+      - name: Deploy to Staging
+        if: github.ref == 'refs/heads/staging'
+        run: echo "Deploy to Staging"
+
+      - name: Deploy to Production
+        if: github.ref == 'refs/heads/main'
+        run: echo "Deploy to Production"
