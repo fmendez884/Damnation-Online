@@ -59,3 +59,13 @@ sysinfo.txt
 crashlytics-build.properties
 
 .fake
+
+cert.json
+cert.pfx
+certificate.pem
+certrequest.csr
+localhost.crt
+localhost.csr
+localhost.key
+localhost.pfx
+privatekey.pem
