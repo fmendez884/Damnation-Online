@@ -21,10 +21,11 @@ public class MyNetworkManager : NetworkManager
 #endif
     }
 
-    public override void OnClientConnect(NetworkConnection conn)
+    public override void OnClientConnect()
     {
+        NetworkConnection conn = NetworkClient.connection;
         Debug.Log("OnClientConnect is called");
-        base.OnClientConnect(conn);
+        base.OnClientConnect();
         
         Debug.Log("I connected to a server.");
         Debug.Log($"Number of players: {numPlayers}");
