@@ -54,10 +54,24 @@
     },
     "cSpell.words": [
         "Behaviour",
+        "Behaviours",
+        "changescene",
         "cinemachine",
+        "DDOL",
         "deltatime",
+        "Dont",
+        "everytime",
         "Lerp",
         "Mathf",
-        "normalise"
+        "networkmanager",
+        "normalise",
+        "playmode",
+        "recieve",
+        "respawn",
+        "Respawned",
+        "spawnable",
+        "spawnobjects",
+        "startserver",
+        "syncvar"
     ]
 }
