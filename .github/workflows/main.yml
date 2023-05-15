@@ -63,13 +63,13 @@ jobs:
         with:
           unityVersion: '2021.3.4f1'
           targetPlatform: ${{ matrix.target == 'Server' && 'StandaloneLinux64' || 'WebGL' }}
-          buildName: ${{ matrix.target == 'Server' && 'Linux'}}
+          buildName: ${{ matrix.target }}
           buildMethod: ${{ matrix.target == 'Server' && 'BuildScript.BuildLinuxServer' || '' }}
       
       - uses: actions/upload-artifact@v2
         with:
           name: build-${{ matrix.target }}
-          path: build/${{ matrix.target == 'Server' && 'Linux'}}
+          path: build/${{ matrix.target == 'Server' && 'StandaloneLinux64'}}
 
       - name: Deploy to Staging
         if: github.ref == 'refs/heads/staging'
