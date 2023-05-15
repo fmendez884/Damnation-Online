@@ -64,12 +64,12 @@ jobs:
           unityVersion: '2021.3.4f1'
           targetPlatform: ${{ matrix.target == 'Server' && 'StandaloneLinux64' || 'WebGL' }}
           buildName: ${{ matrix.target }}
-          customParameters: ${{ matrix.target == 'Server' && '-buildServer' || '' }}
+          customParameters: ${{ matrix.target == 'Server' && '-buildServer -standaloneBuildSubtarget Server' || '' }}
       
       - uses: actions/upload-artifact@v2
         with:
           name: build-${{ matrix.target }}
-          path: build/${{ matrix.target }}
+          path: build/${{ matrix.target == 'Server' && 'StandaloneLinux64/Server'}}
 
       - name: Deploy to Staging
         if: github.ref == 'refs/heads/staging'
