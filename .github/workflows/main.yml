@@ -1,0 +1,82 @@
+name: GameCI Template 🎮
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+  pull_request:
+    branches:
+      - main
+      - staging
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+  setup-and-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup
+      run: echo "Setup step goes here"
+
+    - name: Run Tests
+      run: echo "Test step goes here"
+
+  build:
+    needs: setup-and-tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: ['WebGL', 'Server']
+      fail-fast: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create LFS file list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+      - name: Restore LFS cache
+        uses: actions/cache@v2
+        id: lfs-cache
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Git LFS Pull
+        run: |
+          git lfs pull
+          git add .
+          git reset --hard
+
+      - name: Restore Library cache
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-build-${{ matrix.target }}
+          restore-keys: |
+            Library-build-
+            Library-
+
+      - uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: '2021.3.4f1'
+          targetPlatform: ${{ matrix.target == 'Server' && 'StandaloneLinux64' || 'WebGL' }}
+          buildName: ${{ matrix.target }}
+          buildMethod: ${{ matrix.target == 'Server' && 'BuildScript.BuildLinuxServer' || '' }}
+      
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.target }}
+          path: build/${{ matrix.target == 'Server' && 'StandaloneLinux64' || 'WebGL'}}
+
+      - name: Deploy to Staging
+        if: github.ref == 'refs/heads/staging'
+        run: echo "Deploy to Staging"
+
+      - name: Deploy to Production
+        if: github.ref == 'refs/heads/main'
+        run: echo "Deploy to Production"

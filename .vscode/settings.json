@@ -1,4 +1,4 @@
-﻿{
+{
     "files.exclude":
     {
         "**/.DS_Store":true,
@@ -51,5 +51,28 @@
         "ProjectSettings/":true,
         "temp/":true,
         "Temp/":true
-    }
+    },
+    "cSpell.words": [
+        "Behaviour",
+        "Behaviours",
+        "changescene",
+        "cinemachine",
+        "DDOL",
+        "deltatime",
+        "Dont",
+        "everytime",
+        "Lerp",
+        "Mathf",
+        "networkmanager",
+        "normalise",
+        "playmode",
+        "recieve",
+        "respawn",
+        "Respawned",
+        "spawnable",
+        "spawnobjects",
+        "startserver",
+        "subtarget",
+        "syncvar"
+    ]
 }
