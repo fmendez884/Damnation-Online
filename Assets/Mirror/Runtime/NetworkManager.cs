@@ -1131,7 +1131,7 @@ namespace Mirror
             OnServerReady(conn);
         }
 
-        void OnServerAddPlayerInternal(NetworkConnectionToClient conn, AddPlayerMessage msg)
+        public virtual void OnServerAddPlayerInternal(NetworkConnectionToClient conn, AddPlayerMessage msg)
         {
             //Debug.Log("NetworkManager.OnServerAddPlayer");
 
