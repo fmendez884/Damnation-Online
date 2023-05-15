@@ -64,7 +64,7 @@ jobs:
           unityVersion: '2021.3.4f1'
           targetPlatform: ${{ matrix.target == 'Server' && 'StandaloneLinux64' || 'WebGL' }}
           buildName: ${{ matrix.target }}
-          customParameters: ${{ matrix.target == 'Server' && '-quit -batchmode -nographics -buildServer -executeMethod BuildScript.BuildLinuxServer' || '' }}
+          customParameters: ${{ matrix.target == 'Server' && '-buildServer -executeMethod BuildScript.BuildLinuxServer' || '' }}
       
       - uses: actions/upload-artifact@v2
         with:
