@@ -69,7 +69,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.target }}
-          path: build/${{ matrix.target == 'Server' && 'StandaloneLinux64'}}
+          path: /github/workspace/build/${{ matrix.target == 'Server' && 'StandaloneLinux64' || ''}}
 
       - name: Deploy to Staging
         if: github.ref == 'refs/heads/staging'
