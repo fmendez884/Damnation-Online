@@ -68,7 +68,7 @@ jobs:
       
       - uses: actions/upload-artifact@v2
         with:
-          name: build-${{ matrix.target }}
+          name: ${{ matrix.target }}
           path: build/${{ matrix.target == 'Server' && 'StandaloneLinux64'}}
 
       - name: Deploy to Staging
