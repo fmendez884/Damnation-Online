@@ -97,6 +97,7 @@ jobs:
 
       - name: Deploy to Staging or Production
         env: 
+          BUILD_TYPE: ${{ matrix.target == 'Server' && 'linux' || 'webgl' }}
           AWS_STAGE_USER: ${{ secrets.AWS_STAGE_USER }}
           AWS_STAGE_IP: ${{ secrets.AWS_STAGE_IP }}
           AWS_STAGE_SSH_KEYPAIR: ${{ secrets.AWS_STAGE_SSH_KEYPAIR }}
