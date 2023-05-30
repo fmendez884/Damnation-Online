@@ -72,3 +72,6 @@ privatekey.pem
 Server.zip
 Server.tar.gz
 /certs
+/UserSettings
+./UserSettings
+UserSettings
