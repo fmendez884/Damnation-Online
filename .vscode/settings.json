@@ -60,7 +60,9 @@
         "DDOL",
         "deltatime",
         "Dont",
+        "dotenv",
         "everytime",
+        "KEYPAIR",
         "Lerp",
         "Mathf",
         "networkmanager",
@@ -73,6 +75,8 @@
         "spawnobjects",
         "startserver",
         "subtarget",
-        "syncvar"
+        "syncvar",
+        "WEBGL",
+        "zipf"
     ]
 }
