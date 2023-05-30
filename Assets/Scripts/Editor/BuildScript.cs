@@ -45,7 +45,7 @@ public class BuildScript : MonoBehaviour
 
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
         buildPlayerOptions.scenes = new[] { "Assets/Scenes/SampleScene.unity" };
-        buildPlayerOptions.locationPathName = "build/WebGL";
+        buildPlayerOptions.locationPathName = "Builds/WebGL";
         buildPlayerOptions.target = BuildTarget.WebGL;
         buildPlayerOptions.options = BuildOptions.None;
 

@@ -34,6 +34,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -68,11 +70,12 @@ jobs:
           targetPlatform: ${{ matrix.target == 'Server' && 'StandaloneLinux64' || 'WebGL' }}
           buildName: ${{ matrix.target }}
           buildMethod: ${{ matrix.target == 'Server' && 'BuildScript.BuildLinuxServer' || '' }}
+          buildsPath: ./Builds/${{ matrix.target }}
       
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.target }}
-          path: build/${{ matrix.target == 'Server' && 'Server' || 'WebGL'}}
+          path: Builds/${{ matrix.target == 'Server' && 'Server' || 'WebGL'}}
       
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -92,8 +95,8 @@ jobs:
           AWS_PROD_USER: ${{ secrets.AWS_PROD_USER }}
           AWS_PROD_IP: ${{ secrets.AWS_PROD_IP }}
           AWS_PROD_SSH_KEYPAIR: ${{ secrets.AWS_PROD_SSH_KEYPAIR }}
-          WEBGL_BUILD_PATH: "build/WebGL"
-          LINUX_BUILD_PATH: "build/Server"
+          WEBGL_BUILD_PATH: "Build/WebGL"
+          LINUX_BUILD_PATH: "Build/Server"
           ACCESS_TOKEN_GITHUB: ${{ secrets.ACCESS_TOKEN_GITHUB }}
           WEBAPP_REPO_GITHUB: ${{ secrets.WEBAPP_REPO_GITHUB }}
         run: python deploy.py
