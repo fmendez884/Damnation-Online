@@ -96,8 +96,8 @@ jobs:
           AWS_PROD_USER: ${{ secrets.AWS_PROD_USER }}
           AWS_PROD_IP: ${{ secrets.AWS_PROD_IP }}
           AWS_PROD_SSH_KEYPAIR: ${{ secrets.AWS_PROD_SSH_KEYPAIR }}
-          WEBGL_BUILD_PATH: ${{ matrix.target == 'Server' && '' || 'Build/WebGL' }}
-          LINUX_BUILD_PATH: ${{ matrix.target == 'Server' && 'Build/Server' || '' }}
+          WEBGL_BUILD_PATH: ${{ matrix.target == 'Server' && '' || 'Builds/WebGL' }}
+          LINUX_BUILD_PATH: ${{ matrix.target == 'Server' && 'Builds/Server' || '' }}
           ACCESS_TOKEN_GITHUB: ${{ secrets.ACCESS_TOKEN_GITHUB }}
           WEBAPP_REPO_GITHUB: ${{ secrets.WEBAPP_REPO_GITHUB }}
         run: python deploy-unity/project.py
