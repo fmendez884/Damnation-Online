@@ -87,14 +87,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r deploy-unity/requirements.txt
 
-      - name: Set build type
-        run: |
-          if [[ "${{ matrix.target }}" == "Server" ]]; then
-            echo "BUILD_TYPE=linux" >> $GITHUB_ENV
-          else
-            echo "BUILD_TYPE=webgl" >> $GITHUB_ENV
-          fi
-
       - name: Deploy to Staging or Production
         env: 
           BUILD_TYPE: ${{ matrix.target == 'Server' && 'linux' || 'webgl' }}
