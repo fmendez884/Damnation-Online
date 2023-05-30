@@ -99,4 +99,4 @@ jobs:
           LINUX_BUILD_PATH: "Build/Server"
           ACCESS_TOKEN_GITHUB: ${{ secrets.ACCESS_TOKEN_GITHUB }}
           WEBAPP_REPO_GITHUB: ${{ secrets.WEBAPP_REPO_GITHUB }}
-        run: python deploy.py
+        run: python deploy-unity/project.py
