@@ -16,7 +16,7 @@ public class BuildScript : MonoBehaviour
 
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
         buildPlayerOptions.scenes = new[] { "Assets/StarterAssets/ThirdPersonController/Scenes/Playground.unity" };
-        buildPlayerOptions.locationPathName = "build/StandaloneLinux64/Server/Server.x86_64";
+        buildPlayerOptions.locationPathName = "Builds/Server/Server.x86_64";
         buildPlayerOptions.target = BuildTarget.StandaloneLinux64;
         buildPlayerOptions.subtarget = (int)StandaloneBuildSubtarget.Server;
         buildPlayerOptions.options = BuildOptions.CompressWithLz4HC;
@@ -45,7 +45,7 @@ public class BuildScript : MonoBehaviour
 
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
         buildPlayerOptions.scenes = new[] { "Assets/Scenes/SampleScene.unity" };
-        buildPlayerOptions.locationPathName = "build/WebGL";
+        buildPlayerOptions.locationPathName = "Builds/WebGL";
         buildPlayerOptions.target = BuildTarget.WebGL;
         buildPlayerOptions.options = BuildOptions.None;
 

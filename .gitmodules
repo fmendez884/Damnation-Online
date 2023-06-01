@@ -1,0 +1,3 @@
+[submodule "deploy-unity"]
+    path = deploy-unity
+    url = https://github.com/fmendez884/deploy-unity

@@ -34,6 +34,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
 
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -66,13 +68,21 @@ jobs:
         with:
           unityVersion: '2021.3.4f1'
           targetPlatform: ${{ matrix.target == 'Server' && 'StandaloneLinux64' || 'WebGL' }}
-          buildName: ${{ matrix.target }}
+          buildName: ${{ matrix.target == 'Server' && matrix.target || '' }}
           buildMethod: ${{ matrix.target == 'Server' && 'BuildScript.BuildLinuxServer' || '' }}
+          buildsPath: ${{ matrix.target == 'Server' && 'Builds/Server' || 'Builds' }}
       
+      - name: Correct WebGL Build Path
+        if: matrix.target != 'Server'
+        run: |
+          sudo mkdir -p Builds/WebGL
+          sudo mv Builds/WebGL/WebGL/* Builds/WebGL/
+          sudo rmdir Builds/WebGL/WebGL
+
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.target }}
-          path: build/${{ matrix.target == 'Server' && 'StandaloneLinux64' || 'WebGL'}}
+          path: Builds/${{ matrix.target == 'Server' && 'Server' || 'WebGL'}}
       
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -82,14 +92,19 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r deploy/unity/requirements.txt
+          pip install -r deploy-unity/requirements.txt
 
-      - name: Deploy to Staging
-        if: success() && github.ref == 'refs/heads/staging'
-        run: |
-          echo "Run your Python script for deploying to staging here"
-
-      - name: Deploy to Production
-        if: success() && github.ref == 'refs/heads/main'
-        run: |
-          echo "Run your Python script for deploying to production here"
+      - name: Deploy to Staging or Production
+        env: 
+          BUILD_TYPE: ${{ matrix.target == 'Server' && 'linux' || 'webgl' }}
+          AWS_STAGE_USER: ${{ secrets.AWS_STAGE_USER }}
+          AWS_STAGE_IP: ${{ secrets.AWS_STAGE_IP }}
+          AWS_STAGE_SSH_KEYPAIR: ${{ secrets.AWS_STAGE_SSH_KEYPAIR }}
+          AWS_PROD_USER: ${{ secrets.AWS_PROD_USER }}
+          AWS_PROD_IP: ${{ secrets.AWS_PROD_IP }}
+          AWS_PROD_SSH_KEYPAIR: ${{ secrets.AWS_PROD_SSH_KEYPAIR }}
+          WEBGL_BUILD_PATH: 'Builds/WebGL'
+          LINUX_BUILD_PATH: 'Builds/Server'
+          ACCESS_TOKEN_GITHUB: ${{ secrets.ACCESS_TOKEN_GITHUB }}
+          WEBAPP_REPO_GITHUB: ${{ secrets.WEBAPP_REPO_GITHUB }}
+        run: python deploy-unity/project.py

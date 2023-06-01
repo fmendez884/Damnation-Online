@@ -69,3 +69,9 @@ localhost.csr
 localhost.key
 localhost.pfx
 privatekey.pem
+Server.zip
+Server.tar.gz
+/certs
+/UserSettings
+./UserSettings
+UserSettings
