@@ -75,10 +75,10 @@ jobs:
       - name: Correct WebGL Build Path
         if: matrix.target != 'Server'
         run: |
-          mkdir -p Builds/WebGL
-          mv Builds/WebGL/WebGL/* Builds/WebGL/
-          rmdir Builds/WebGL/WebGL
-          
+          sudo mkdir -p Builds/WebGL
+          sudo mv Builds/WebGL/WebGL/* Builds/WebGL/
+          sudo rmdir Builds/WebGL/WebGL
+
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.target }}
