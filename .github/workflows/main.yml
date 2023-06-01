@@ -71,8 +71,14 @@ jobs:
           buildName: ${{ matrix.target == 'Server' && matrix.target || '' }}
           buildMethod: ${{ matrix.target == 'Server' && 'BuildScript.BuildLinuxServer' || '' }}
           buildsPath: ${{ matrix.target == 'Server' && 'Builds/Server' || 'Builds' }}
-
       
+      - name: Correct WebGL Build Path
+        if: matrix.target != 'Server'
+        run: |
+          mkdir -p Builds/WebGL
+          mv Builds/WebGL/WebGL/* Builds/WebGL/
+          rmdir Builds/WebGL/WebGL
+          
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.target }}
