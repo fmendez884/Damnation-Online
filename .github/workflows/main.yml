@@ -70,7 +70,8 @@ jobs:
           targetPlatform: ${{ matrix.target == 'Server' && 'StandaloneLinux64' || 'WebGL' }}
           buildName: ${{ matrix.target }}
           buildMethod: ${{ matrix.target == 'Server' && 'BuildScript.BuildLinuxServer' || '' }}
-          buildsPath: Builds/${{ matrix.target }}
+          buildsPath: ${{ matrix.target == 'Server' && 'Builds/Server' || 'Builds/' }}
+
       
       - uses: actions/upload-artifact@v2
         with:
