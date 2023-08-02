@@ -97,6 +97,7 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+        private int _animIDPunch;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
         private PlayerInput _playerInput;
@@ -159,6 +160,8 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            Punch();
+
         }
 
         private void LateUpdate()
@@ -173,6 +176,7 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDPunch = Animator.StringToHash("Punch");
         }
 
         private void GroundedCheck()
@@ -256,7 +260,7 @@ namespace StarterAssets
             if (_input.move != Vector2.zero)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                  _mainCamera.transform.eulerAngles.y;
+                                _mainCamera.transform.eulerAngles.y;
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
@@ -388,5 +392,20 @@ namespace StarterAssets
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
         }
+
+        private void Punch()
+        {
+            if (_input.punch)
+            {
+                Debug.Log("Punch");
+                
+                if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDPunch, true);
+                    }
+            }
+            _input.punch = false;
+        }
+
     }
 }
