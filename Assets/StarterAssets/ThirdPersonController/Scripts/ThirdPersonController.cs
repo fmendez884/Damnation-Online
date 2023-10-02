@@ -14,6 +14,8 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        private bool canMove = true;
+
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -159,7 +161,11 @@ namespace StarterAssets
 
             JumpAndGravity();
             GroundedCheck();
-            Move();
+            if (canMove) 
+            {
+                Move();
+            }
+
             Punch();
 
         }
@@ -401,10 +407,16 @@ namespace StarterAssets
                 
                 if (_hasAnimator)
                     {
-                        _animator.SetBool(_animIDPunch, true);
+                        // _animator.SetBool(_animIDPunch, true);
+                        _animator.SetTrigger(_animIDPunch);
                     }
             }
             _input.punch = false;
+            // _animator.SetBool(_animIDPunch, false);
+        }
+
+        private void canMoveTrigger(){
+            canMove = !canMove;
         }
 
     }
