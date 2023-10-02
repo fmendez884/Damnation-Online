@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 using Cinemachine;
 #endif
 
-namespace StarterAssets
+namespace StarterAssetsDeploy
 {
     // This class needs to be a scriptable object to support dynamic determination of StarterAssets install path
     public partial class StarterAssetsDeployMenu : ScriptableObject
