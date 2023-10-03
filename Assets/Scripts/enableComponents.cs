@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using Cinemachine;
 using Mirror;
 
+using StarterAssetsTPController;
+
 namespace StarterAssets {
     public class enableComponents : NetworkBehaviour
     {
