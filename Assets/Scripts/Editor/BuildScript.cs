@@ -44,7 +44,7 @@ public class BuildScript : MonoBehaviour
         EditorUserBuildSettings.SwitchActiveBuildTarget(targetGroup, target);
 
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/Scenes/SampleScene.unity" };
+        buildPlayerOptions.scenes = new[] { "Assets/StarterAssets/ThirdPersonController/Scenes/Playground.unity" };
         buildPlayerOptions.locationPathName = "Builds/WebGL";
         buildPlayerOptions.target = BuildTarget.WebGL;
         buildPlayerOptions.options = BuildOptions.None;
