@@ -1,6 +1,7 @@
 using UnityEngine;
 
-namespace StarterAssets
+using StarterAssets;
+namespace UICanvas
 {
     public class UICanvasControllerInput : MonoBehaviour
     {
@@ -28,6 +29,20 @@ namespace StarterAssets
             starterAssetsInputs.SprintInput(virtualSprintState);
         }
         
+        public void Start() 
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                // Do something with player
+                starterAssetsInputs = player.GetComponent<StarterAssetsInputs>();
+            }
+            else
+            {
+                Debug.LogError("No GameObject found with the 'Player' tag.");
+            }
+        }
+
     }
 
 }

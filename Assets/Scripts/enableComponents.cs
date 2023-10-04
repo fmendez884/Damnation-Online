@@ -5,7 +5,9 @@ using UnityEngine.InputSystem;
 using Cinemachine;
 using Mirror;
 
-namespace StarterAssets {
+using StarterAssetsTPController;
+
+namespace enableComponents {
     public class enableComponents : NetworkBehaviour
     {
         public Transform target;
