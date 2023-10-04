@@ -7,7 +7,7 @@ using Mirror;
 
 using StarterAssetsTPController;
 
-namespace StarterAssets {
+namespace enableComponents {
     public class enableComponents : NetworkBehaviour
     {
         public Transform target;
