@@ -10,6 +10,8 @@ on:
     branches:
       - main
       - staging
+  workflow_dispatch: {}
+
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
